@@ -8,8 +8,8 @@ class PretTests extends FlatSpec with Matchers {
   }
 
   it should "compute tableaux d'amortissements" in {
-    val pret = new Pret(20, 0.02, 10000, 0.001)
-    pret.createTableAmortissements().foreach(println)
+    val pret = new Pret(20, 0.02, 10000, 0.001, 0.05)
+    pret.tableAmortissement.last.capitalDu should be <= 1.0
   }
 
 }

@@ -8,39 +8,6 @@ case class IR(value: Double) extends Impot
 
 case class PrelevementSocial(value: Double) extends Impot
 
-sealed trait Asset {
-  def toMoney(): Double
-
-}
-
-
-class Simulator(monthlySaving: Double, marketYield: Double) {
-  private val monthlyYield = Simulator.computeMonthRate(marketYield)
-
-  def computeMarketInvestment(monthlyInvestment: Double, nbMonth: Int): Value = {
-    val first = 0.0
-    val lastvalue = (1 to nbMonth).foldLeft(monthlyInvestment) { case (result, _) =>
-        result * (1 + monthlyYield) + monthlyInvestment
-    }
-    val plusValue = lastvalue - monthlyInvestment  * nbMonth
-    Value(lastvalue, plusValue)
-  }
-
-  def conversionMoney(v: Value, nbMonth: Int): Double = {
-    val year = nbMonth / 12.0
-    if (year <= 2)
-      v.plusValue * (100 - 22.5 - 17.2) / 100.0 + v.value
-    else if (year >= 2 && year <= 5 )
-      v.plusValue * (100 - 19.0 - 17.2) / 100.0 + v.value
-    else
-      v.plusValue * (100 - 17.2) / 100.0 + v.value
-  }
-
-
-  def simulate(nbMonth: Int): Vector[Double] = {
-    ???
-  }
-}
 
 object Simulator {
 
@@ -64,7 +31,7 @@ object Simulator {
   }
 
   def computeMonthRate(yearRate: Double): Double = {
-    math.pow(1 + yearRate, 1 / 12) - 1
+    math.pow(1 + yearRate, 1 / 12.0) - 1
   }
 
 
