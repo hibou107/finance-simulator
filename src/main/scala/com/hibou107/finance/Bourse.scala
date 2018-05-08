@@ -1,7 +1,7 @@
 package com.hibou107.finance
 
-class CompteTitre(rawCapital: Double, originalMonth: Int, currentMonth: Int, currentCapital: Double,
-                  frais: Double, rendement: Double) {
+class ShareAccount(rawCapital: Double, originalMonth: Int, currentMonth: Int, currentCapital: Double,
+                   frais: Double, rendement: Double) {
   private lazy val monthlyRate = Simulator.computeMonthRate(rendement)
 
   def value(month: Int): Value = {
@@ -9,10 +9,10 @@ class CompteTitre(rawCapital: Double, originalMonth: Int, currentMonth: Int, cur
     Value(currentValue, currentValue - rawCapital)
   }
 
-  def apport(month: Int, value: Double): CompteTitre = {
+  def apport(month: Int, value: Double): ShareAccount = {
     val newValue = currentCapital * Math.pow(1 + monthlyRate, month - currentMonth) + value
     val updatedRawCapital = rawCapital + value
-    new CompteTitre(updatedRawCapital, originalMonth, month, newValue, frais, rendement)
+    new ShareAccount(updatedRawCapital, originalMonth, month, newValue, frais, rendement)
   }
 }
 

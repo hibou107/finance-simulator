@@ -8,11 +8,17 @@ class MortgageTests extends FlatSpec with Matchers {
   }
 
   it should "compute tableaux d'amortissements" in {
-    val newMortgage = new Mortgage(10000, 20, 0.02, 0.001)
+    val newMortgage = new Mortgage(10000, 20, 0.02, 0.001, 0.05)
     val flows = newMortgage.cashflows(20)
     flows.head shouldBe MortgageReceive(10000)
     flows.collect { case x: MortgagePayment => x.capitalReimbursement
     }.sum shouldBe (10000.0 +- 0.001)
+  }
+
+  it should "give the same result as simulation" in {
+    val newMortgage = new Mortgage(135000, 120, 0.016, 0.0012, 0.05)
+    (newMortgage.monthlyPayment + newMortgage.monthlyInsurance) shouldBe (1231.65 +- 0.01)
+
   }
 
 }
