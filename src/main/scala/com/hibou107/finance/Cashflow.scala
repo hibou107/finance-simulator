@@ -5,19 +5,27 @@ sealed trait Cashflow {
   val value: Double
 }
 
-case class ComposeCashFlow(values: List[Cashflow]) extends Cashflow {
+case class MultiCashFlow(values: List[UnitCashflow]) extends Cashflow {
   val value: Double = values.map(_.value).sum
 }
-case class RentalIncome(value: Double) extends Cashflow // all values are postives
-case class SalaryIncome(value: Double) extends Cashflow
-case class MortgageReceive(value: Double) extends Cashflow
 
-case class RentPayment(value: Double) extends Cashflow
-case class LifePayment(value: Double) extends Cashflow
+sealed trait UnitCashflow extends Cashflow
 
-case class MortgagePayment(value: Double, interest: Double, insurance: Double, capitalReimbursement: Double) extends Cashflow // all values are negatives
+case class RentalIncome(value: Double) extends UnitCashflow // all values are postives
+case class SalaryIncome(value: Double) extends UnitCashflow
+case class MortgageReceive(value: Double) extends UnitCashflow
 
-case class Payment(value: Double) extends Cashflow // negative value
-case object Zero extends Cashflow {
+case class SCPISell(value: Double, originValue: Double) extends UnitCashflow
+
+case class RentPayment(value: Double) extends UnitCashflow
+case class LifePayment(value: Double) extends UnitCashflow
+case class TaxPayment(value: Double) extends UnitCashflow
+
+case class MortgagePayment(value: Double, interest: Double, insurance: Double, capitalReimbursement: Double) extends UnitCashflow // all values are negatives
+case class Payment(value: Double) extends UnitCashflow // negative value
+
+case class IRPayment(value: Double) extends UnitCashflow
+
+case object Zero extends UnitCashflow {
   val value: Double = 0.0
 }

@@ -13,11 +13,13 @@ class MortgageTests extends FlatSpec with Matchers {
     flows.head shouldBe MortgageReceive(10000)
     flows.collect { case x: MortgagePayment => x.capitalReimbursement
     }.sum shouldBe (10000.0 +- 0.001)
+    flows.size shouldBe 21
   }
 
   it should "give the same result as simulation" in {
     val newMortgage = new Mortgage(135000, 120, 0.016, 0.0012, 0.05)
     (newMortgage.monthlyPayment + newMortgage.monthlyInsurance) shouldBe (1231.65 +- 0.01)
+    newMortgage.value(121) shouldBe 0.0
 
   }
 
