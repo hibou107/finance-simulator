@@ -69,8 +69,6 @@ object Simulator {
   }
 
 
-
-
   def main(args: Array[String]): Unit = {
     print(computeIR(44000, 2.5))
   }
