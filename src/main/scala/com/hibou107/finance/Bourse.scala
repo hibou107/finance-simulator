@@ -44,8 +44,3 @@ class PEA(rawCapital: Double, originalMonth: Int, currentMonth: Int, currentCapi
     new PEA(updatedRawCapital, originalMonth, month, newValue, frais, rendement)
   }
 }
-
-
-abstract class SavingContract(rawCapital: Double, originalMonth: Int, currentMonth: Int, currentCapital: Double, frais: Double, rendement: Double) {
-
-}
