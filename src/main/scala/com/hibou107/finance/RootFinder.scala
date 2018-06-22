@@ -35,8 +35,4 @@ object RootFinder {
       findRootSecant(f, x1, x2, error, current + 1, max)
     }
   }
-
-
-
-
 }
